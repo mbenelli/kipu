@@ -16,6 +16,7 @@
 module Kipu.Jira.Api where
 
 import BasicPrelude
+import Control.Monad.Reader
 import Data.Aeson
 import Data.List as L
 import Data.Proxy (Proxy (..))
@@ -205,6 +206,21 @@ query q f cfg =
     (Just True)
     (Just $ user cfg)
     (Just $ auth cfg)
+
+query' :: Text -> Text -> Reader Config (ClientM SearchResponse)
+query' q f = do
+  u <- asks user
+  a <- asks auth
+  return $
+    search
+      (Just q)
+      (Just 0)
+      (Just 100)
+      (Just "changelog")
+      (Just f)
+      (Just True)
+      (Just u)
+      (Just a)
 
 searchQuery :: Text -> Int -> [Text] -> Config -> ClientM SearchResponse
 searchQuery jql start fs cfg =
