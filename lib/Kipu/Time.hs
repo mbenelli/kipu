@@ -90,12 +90,12 @@ union x y
 
 union' :: [TimeInterval] -> [TimeInterval]
 union' (x0 : x1 : xs) =
-  let u = (union x0 x1)
+  let u = union x0 x1
    in case length u of
         1 -> union' $ u ++ xs
-        _ -> union' $ (last u) : xs
+        _ -> union' $ last u : xs
 union' [] = []
-union' (x : []) = [x]
+union' [x] = [x]
 
 -- | Return the working days included in the interval.
 --
