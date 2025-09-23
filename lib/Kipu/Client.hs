@@ -11,6 +11,7 @@
 module Kipu.Client where
 
 import BasicPrelude
+import Control.Monad.Reader
 import Data.Default (Default (def))
 import Data.Text (append, pack, unpack)
 import Kipu.Config
@@ -28,6 +29,10 @@ import Network.TLS
   )
 import Network.TLS.Extra.Cipher (ciphersuite_strong)
 import Servant.Client (ClientM, mkClientEnv, parseBaseUrl, runClientM)
+
+
+
+type JiraClientM a = ReaderT Config ClientM a
 
 -- Certificate handling
 
@@ -70,6 +75,24 @@ run f = do
       u <- parseBaseUrl $ unpack (url cfg)
       let g = f cfg
       res <- runClientM g (mkClientEnv manager' u)
+      case res of
+        Left err -> return $ Left $ append "Error: " $ pack $ show err
+        Right r -> return $ Right r
+
+runJiraClient :: JiraClientM a -> IO (Either Text a)
+runJiraClient c = do
+  file <- defaultConfigFile
+  cf <- readConfig file
+  case cf  of
+    Left e -> pure $ Left $ append "Error: " $ pack $ show e
+    Right cfg -> do
+      manager' <- case crtPath cfg of
+        Just cert -> case keyPath cfg of
+          Just ckey -> mkMngr (url cfg) cert ckey
+          Nothing -> newTlsManager
+        Nothing -> newTlsManager
+      u <- parseBaseUrl $ unpack (url cfg)
+      res <- runClientM (runReaderT c cfg) (mkClientEnv manager' u)
       case res of
         Left err -> return $ Left $ append "Error: " $ pack $ show err
         Right r -> return $ Right r

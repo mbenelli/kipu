@@ -16,12 +16,13 @@
 module Kipu.Jira.Api where
 
 import BasicPrelude
-import Control.Monad.Reader
+import Control.Monad.Reader (asks)
 import Data.Aeson
 import Data.List as L
 import Data.Proxy (Proxy (..))
 import Data.Text as T
 import GHC.Generics
+import Kipu.Client (JiraClientM)
 import Kipu.Config
 import Kipu.Jira.CustomTypes (IssueBean, IssueCoreObject)
 import qualified Kipu.Jira.InsightTypes as JI
@@ -207,21 +208,6 @@ query q f cfg =
     (Just $ user cfg)
     (Just $ auth cfg)
 
-query' :: Text -> Text -> Reader Config (ClientM SearchResponse)
-query' q f = do
-  u <- asks user
-  a <- asks auth
-  return $
-    search
-      (Just q)
-      (Just 0)
-      (Just 100)
-      (Just "changelog")
-      (Just f)
-      (Just True)
-      (Just u)
-      (Just a)
-
 searchQuery :: Text -> Int -> [Text] -> Config -> ClientM SearchResponse
 searchQuery jql start fs cfg =
   search
@@ -239,6 +225,12 @@ fieldsQuery cfg =
   getFields
     (Just $ user cfg)
     (Just $ auth cfg)
+
+fieldsQuery' :: JiraClientM [JT.FieldDetails]
+fieldsQuery' = do
+  u <- asks user
+  a <- asks auth
+  lift $ getFields (Just u) (Just a)
 
 issueTypeQuery :: Config -> ClientM [JT.IssueTypeDetails]
 issueTypeQuery cfg =

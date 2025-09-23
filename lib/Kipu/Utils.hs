@@ -10,7 +10,7 @@
 -- Maintainer: mbenelli@fastmail.com
 module Kipu.Utils where
 
-import Kipu.Client (run)
+import Kipu.Client (run, runJiraClient)
 import Kipu.Config
 import Kipu.Jira.Api
 import Kipu.Jira.CustomTypes
@@ -119,6 +119,20 @@ withSearchResult q i fs = withContinuation $ searchQuery q i fs
 
 withFields :: (Show a) => ([JT.FieldDetails] -> a) -> IO ()
 withFields = withContinuation fieldsQuery
+
+fields :: IO [JT.FieldDetails]
+fields = do
+  res <- runJiraClient fieldsQuery'
+  case res of
+    Left l -> putStrLn l >> pure []
+    Right r -> pure r
+
+withFields' :: (Show a) => ([JT.FieldDetails] -> a) -> IO ()
+withFields' f = do
+  res <- runJiraClient fieldsQuery'
+  case res of
+    Left l -> putStrLn l
+    Right r -> pPrintNoColor $ f r
 
 withIssueTypes :: (Show a) => ([JT.IssueTypeDetails] -> a) -> IO ()
 withIssueTypes = withContinuation issueTypeQuery
