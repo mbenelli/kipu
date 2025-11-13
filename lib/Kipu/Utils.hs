@@ -172,7 +172,7 @@ collectSearchResult' q i j xs = do
     Right r ->
       if length xs >= j
         then return $ Right xs
-        else collectSearchResult' q (length (xs ++ (issues r))) j (xs ++ (issues r))
+        else collectSearchResult' q (length (xs ++ issues r)) j (xs ++ issues r)
 
 -- Unsafe code used for repl data exploration
 --
@@ -182,7 +182,6 @@ nullIssueBean = IssueBean "0" "0" Nothing Nothing Nothing Nothing
 optimisticLoadIssue :: Text -> IO (IssueBean, [Change])
 optimisticLoadIssue f = do
   eibs :: Either String [IssueBean] <- fromFile f
-  let ibs = fromRight [nullIssueBean] eibs
-  let ib :: IssueBean = head ibs
+  let ib :: IssueBean = head $ fromRight [nullIssueBean] eibs
   let cs :: [Change] = fromMaybe [] $ getChanges ib
   return (ib, cs)

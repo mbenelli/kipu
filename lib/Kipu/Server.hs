@@ -1,6 +1,7 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
 -- |
 -- Module: Kipu.Server
@@ -13,8 +14,9 @@
 -- Still a work in progress.
 module Kipu.Server where
 
+import BasicPrelude
 import Data.Aeson
-import Data.Text
+import Data.Text hiding (show)
 import GHC.Generics
 import Kipu.Jira.CustomTypes (IssueBean)
 import Kipu.Jira.Types (Changelog, UserDetails)
