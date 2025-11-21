@@ -14,7 +14,7 @@
 module Kipu.Server where
 
 import Data.Aeson
-import Data.Text
+import Data.Text (Text, pack)
 import GHC.Generics
 import Kipu.Jira.CustomTypes (IssueBean)
 import Kipu.Jira.Types (Changelog, UserDetails)

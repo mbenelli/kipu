@@ -10,7 +10,7 @@
 module Kipu.Config where
 
 import Data.Text as T
-import Data.Yaml
+import Data.Yaml (FromJSON, ParseException, decodeFileEither)
 import GHC.Generics
 import System.Directory
 
