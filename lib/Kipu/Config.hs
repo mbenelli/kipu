@@ -19,6 +19,7 @@ data Config = Config
     user :: !Text,
     authorization :: !Text,
     token :: !Text,
+    githubToken :: !Text,
     crtPath :: !(Maybe Text),
     keyPath :: !(Maybe Text)
   }

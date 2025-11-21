@@ -20,11 +20,13 @@ library
     exposed-modules:
         Kipu.Client
       , Kipu.Config
-      , Kipu.Server
+      , Kipu.GitHub.Client
+      , Kipu.GitHub.Types
       , Kipu.Jira.Api
       , Kipu.Jira.CustomTypes
       , Kipu.Jira.InsightTypes
       , Kipu.Jira.Types
+      , Kipu.Server
       , Kipu.Time
       , Kipu.Transform
       , Kipu.Types
@@ -36,7 +38,7 @@ library
       , aeson
       , basic-prelude
       , bytestring
-      , connection
+--      , connection
       , containers
       , data-default
       , directory
@@ -48,6 +50,7 @@ library
       , servant
       , servant-client
       , servant-server
+      , req
       , text
       , time
       , tls
