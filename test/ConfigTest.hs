@@ -18,6 +18,7 @@ sampleConfig =
       user = "ghidorah",
       authorization = "Bearer",
       token = "abcdefghijklmnopqrstuvwxyz1234567890",
+      githubToken = "abcdefghijklmnopqrstuvwxyz1234567890",
       crtPath = Just "path_to_certificate.crt",
       keyPath = Just "path_to_key.key"
     }
