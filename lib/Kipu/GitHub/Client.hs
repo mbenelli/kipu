@@ -1,7 +1,7 @@
-{-# LANGUAGE DeriveAnyClass #-}
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveAnyClass    #-}
+{-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 -- |
 -- Module: Kipu.GitHub.Client
@@ -11,12 +11,12 @@
 -- Maintainer: mbenelli@fastmail.com
 module Kipu.GitHub.Client where
 
-import BasicPrelude
-import Data.Aeson
-import Data.ByteString.Char8 (pack)
-import GHC.Generics (Generic)
-import Kipu.Config
-import Network.HTTP.Req
+import           BasicPrelude
+import           Data.Aeson
+import           Data.ByteString.Char8 (pack)
+import           GHC.Generics          (Generic)
+import           Kipu.Config
+import           Network.HTTP.Req
 
 newtype Query = Query
   { query :: Text
@@ -69,5 +69,5 @@ run q = do
   file <- defaultConfigFile
   c <- readConfig file
   case c of
-    Left e -> return $ pack $ show e
+    Left e    -> return $ pack $ show e
     Right cfg -> graphql q (encodeUtf8 $ githubToken cfg)
