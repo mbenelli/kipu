@@ -18,7 +18,7 @@ import GHC.Generics (Generic)
 import Kipu.Config
 import Network.HTTP.Req
 
-data Query = Query
+newtype Query = Query
   { query :: Text
   }
   deriving (Show, Generic, FromJSON, ToJSON)
@@ -62,8 +62,7 @@ graphql q t = do
             header "User-Agent" "agent"
           ]
       request = req POST ep body bsResponse prms
-  res <- responseBody <$> runReq defaultHttpConfig request
-  pure res
+  responseBody <$> runReq defaultHttpConfig request
 
 run :: Query -> IO ByteString
 run q = do
