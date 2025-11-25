@@ -59,7 +59,7 @@ orgInfo n = Query {
     <> " teamsUrl"
     <> " url"
     <> "}}"
-}
+g
 
 repositoryConnection :: Query
 repositoryConnection = typeInfo "RepositoryConnection"
@@ -69,12 +69,8 @@ repository = typeInfo "Repository"
 
 mbrepos :: Query
 mbrepos = Query {
-  query = "query { search(query:\"owner:mercedes-benz\" type: REPOSITORY first: 5 after: null) {repositoryCount}}"
-}
-
-mbrepo :: Query
-mbrepo = Query {
-  query = "query { search(query:\"name:DnA forks:>20\" type: REPOSITORY first: 5 after: null) {repositoryCount nodes { ... on Repository {name }}}}"
+  query = "query { search(query:\"org:mercedes-benz\" type: REPOSITORY first: 5 after: null) {repositoryCount nodes { ... on Repository { name }}}}"
+  
 }
 
 user :: Query
@@ -124,6 +120,6 @@ run org = do
   file <- defaultConfigFile
   c <- readConfig file
   case c of
-    Left e    -> pure [] -- return $ pack $ show e
+    Left _    -> pure [] -- return $ pack $ show e
     Right cfg -> repos org (encodeUtf8 $ githubToken cfg)
 
