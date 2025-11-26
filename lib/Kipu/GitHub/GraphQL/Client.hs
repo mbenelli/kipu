@@ -41,8 +41,20 @@ orgRepos org f cursor = Query {
 \    organization(login:\"" <> org <> "\") { \
 \      repositories(first: " <> tshow f <> " " <> after <>  ") { \
 \       nodes { \
+\           archivedAt \
+\           createdAt \
+\           isArchived \
+\           isDisabled \
+\           isEmpty \
 \           isFork \
+\           isLocked \
+\           isMirror \
+\           isPrivate \
+\           isTemplate \
 \           name \
+\           stargazerCount \
+\           updatedAt \
+\           url \
 \       } \
 \       pageInfo { \
 \         endCursor \
@@ -54,7 +66,7 @@ orgRepos org f cursor = Query {
   where
     after = case cursor of
       Nothing -> "after: null"
-      Just c -> "after: \"" <> c <> "\""
+      Just c  -> "after: \"" <> c <> "\""
 
 type ClientM a = ReaderT Config IO a
 
@@ -82,11 +94,11 @@ repos org = go org 100 Nothing
             (rs ++) <$> go o f (Just (endCursor page))
           else
             pure rs
-  
+
 runRepos :: Text -> IO [Repository]
 runRepos org = do
   file <- defaultConfigFile
   cfg <- readConfig file
   case cfg of
-    Left _ -> pure []
+    Left _  -> pure []
     Right c -> runReaderT (repos org) c
