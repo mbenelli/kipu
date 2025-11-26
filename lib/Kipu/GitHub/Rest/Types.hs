@@ -2,13 +2,13 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 
 -- |
--- Module: Kipu.GitHub.Types
--- Description: GitHub types
+-- Module: Kipu.GitHub.Rest.Types
+-- Description: GitHub types for REST client
 -- Copyright: (c) Marco Benelli 2025
 -- License: ISC
 -- Maintainer: mbenelli@fastmail.com
 --
-module Kipu.GitHub.Types where
+module Kipu.GitHub.Rest.Types where
 
 import           BasicPrelude
 import           Data.Aeson

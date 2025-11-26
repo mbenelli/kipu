@@ -20,8 +20,10 @@ library
     exposed-modules:
         Kipu.Client
       , Kipu.Config
-      , Kipu.GitHub.Client
-      , Kipu.GitHub.Types
+      , Kipu.GitHub.GraphQL.Client
+      , Kipu.GitHub.GraphQL.Types
+      , Kipu.GitHub.Rest.Client
+      , Kipu.GitHub.Rest.Types
       , Kipu.Jira.Api
       , Kipu.Jira.CustomTypes
       , Kipu.Jira.InsightTypes
