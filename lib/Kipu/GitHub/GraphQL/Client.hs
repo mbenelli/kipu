@@ -100,5 +100,5 @@ runRepos org = do
   file <- defaultConfigFile
   cfg <- readConfig file
   case cfg of
-    Left _  -> pure []
+    Left e  -> print e >> pure []
     Right c -> runReaderT (repos org) c
