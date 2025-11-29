@@ -1,8 +1,8 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveGeneric              #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TypeSynonymInstances #-}
-{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE NoImplicitPrelude          #-}
+{-# LANGUAGE OverloadedStrings          #-}
+{-# LANGUAGE TypeSynonymInstances       #-}
 
 -- |
 -- Module: Kipu.Types
@@ -15,28 +15,22 @@
 -- Most important types are 'Change' and 'Issue'.
 module Kipu.Types where
 
-import BasicPrelude hiding (id, isPrefixOf, lookup)
-import Codec.Rot13
-import Data.HashMap.Strict (filterWithKey)
-import Data.Text (isPrefixOf)
-import Data.Time (UTCTime)
-import GHC.Generics
-import Kipu.Jira.CustomTypes
-import qualified Kipu.Jira.Types as JT
-  ( ChangeDetails (..),
-    Changelog (..),
-    IssueLink (..),
-    IssueTypeDetails (..),
-    LinkType (..),
-    LinkedIssue (..),
-    PageOfChangelogs (..),
-    Project (..),
-    Resolution (..),
-    Status (..),
-    UserDetails (..),
-    Version (..),
-  )
-import Kipu.Time (parseTime)
+import           BasicPrelude          hiding (id, isPrefixOf, lookup)
+import           Codec.Rot13
+import           Data.HashMap.Strict   (filterWithKey)
+import           Data.Text             (isPrefixOf)
+import           Data.Time             (UTCTime)
+import           GHC.Generics
+import           Kipu.Jira.CustomTypes
+import qualified Kipu.Jira.Types       as JT (ChangeDetails (..),
+                                              Changelog (..), IssueLink (..),
+                                              IssueTypeDetails (..),
+                                              LinkType (..), LinkedIssue (..),
+                                              PageOfChangelogs (..),
+                                              Project (..), Resolution (..),
+                                              Status (..), UserDetails (..),
+                                              Version (..))
+import           Kipu.Time             (parseTime)
 
 newtype Status = Status Text
   deriving (Eq, Hashable, Show, Generic)
@@ -79,24 +73,24 @@ class Issue a where
   changelog :: a -> Maybe [Change]
 
 data CoreIssue = CoreIssue
-  { coreIssue_id :: !Text,
-    coreIssue_key :: !Text,
-    coreIssue_issuetype :: !IssueType,
-    coreIssue_summary :: !Text,
-    coreIssue_project :: !Text,
-    coreIssue_status :: !Status,
-    coreIssue_created :: !UTCTime,
-    coreIssue_creator :: !User,
-    coreIssue_description :: !(Maybe Text),
-    coreIssue_assignee :: !(Maybe User),
-    coreIssue_reporter :: !(Maybe User),
-    coreIssue_resolution :: !(Maybe Resolution),
+  { coreIssue_id             :: !Text,
+    coreIssue_key            :: !Text,
+    coreIssue_issuetype      :: !IssueType,
+    coreIssue_summary        :: !Text,
+    coreIssue_project        :: !Text,
+    coreIssue_status         :: !Status,
+    coreIssue_created        :: !UTCTime,
+    coreIssue_creator        :: !User,
+    coreIssue_description    :: !(Maybe Text),
+    coreIssue_assignee       :: !(Maybe User),
+    coreIssue_reporter       :: !(Maybe User),
+    coreIssue_resolution     :: !(Maybe Resolution),
     coreIssue_resolutiondate :: !(Maybe UTCTime),
-    coreIssue_links :: !(Maybe [Link]),
-    coreIssue_fixversion :: !(Maybe [Text]),
-    coreIssue_versions :: !(Maybe [Text]),
-    coreIssue_components :: !(Maybe [Text]),
-    coreIssue_changelog :: !(Maybe [Change])
+    coreIssue_links          :: !(Maybe [Link]),
+    coreIssue_fixversion     :: !(Maybe [Text]),
+    coreIssue_versions       :: !(Maybe [Text]),
+    coreIssue_components     :: !(Maybe [Text]),
+    coreIssue_changelog      :: !(Maybe [Change])
   }
   deriving (Show, Generic)
 
@@ -175,14 +169,14 @@ toIssue x = do
 --
 
 data Change = Change
-  { change_timestamp :: !UTCTime,
-    change_author :: !User,
-    change_field :: !Text,
-    change_type :: !Text,
-    change_from :: !Text,
+  { change_timestamp  :: !UTCTime,
+    change_author     :: !User,
+    change_field      :: !Text,
+    change_type       :: !Text,
+    change_from       :: !Text,
     change_fromString :: !Text,
-    change_to :: !Text,
-    change_toString :: !Text
+    change_to         :: !Text,
+    change_toString   :: !Text
   }
   deriving (Show, Generic)
 
@@ -224,7 +218,7 @@ newtype LinkType = LinkType Text
   deriving (Eq, Hashable, Show, Generic)
 
 data Link = Link
-  { link_type :: !LinkType,
+  { link_type      :: !LinkType,
     link_targetKey :: !Text
   }
   deriving (Eq, Show, Generic)
@@ -240,7 +234,7 @@ toLinks =
          in case JT.issueLink_outwardIssue x of
               Just o -> (Link outward (JT.linkedIssue_key o)) : r
               Nothing -> case JT.issueLink_inwardIssue x of
-                Just i -> (Link inward (JT.linkedIssue_key i)) : r
+                Just i  -> (Link inward (JT.linkedIssue_key i)) : r
                 Nothing -> r
     )
     []
