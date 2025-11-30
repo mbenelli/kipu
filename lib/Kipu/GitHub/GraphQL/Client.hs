@@ -78,8 +78,8 @@ graphQL q = do
       body = ReqBodyJson q
       prms =
         mconcat
-          [ header "Authorization" ("bearer " <> t),
-            header "User-Agent" "agent"
+          [ header "Authorization" ("bearer " <> t)
+          , header "User-Agent" "agent"
           ]
       request = req POST ep body jsonResponse prms
   responseBody <$> runReq defaultHttpConfig request
