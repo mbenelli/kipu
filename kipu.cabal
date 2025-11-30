@@ -18,22 +18,20 @@ common warnings
 library
     import:           warnings
     exposed-modules:
-        Kipu.Client
-      , Kipu.Config
+      Kipu.Config
       , Kipu.GitHub.GraphQL.Client
       , Kipu.GitHub.GraphQL.Types
       , Kipu.GitHub.Rest.Client
       , Kipu.GitHub.Rest.Types
-      , Kipu.Jira.Api
+      , Kipu.Jira.ApiTypes
+      , Kipu.Jira.Client
       , Kipu.Jira.CustomTypes
       , Kipu.Jira.InsightTypes
       , Kipu.Jira.Types
       , Kipu.JsonOptions
-      , Kipu.Server
       , Kipu.Time
       , Kipu.Transform
       , Kipu.Types
-      , Kipu.Utils
     -- other-modules:
     -- other-extensions:
     build-depends:
@@ -41,7 +39,6 @@ library
       , aeson
       , basic-prelude
       , bytestring
---      , connection
       , containers
       , data-default
       , directory
@@ -50,9 +47,6 @@ library
       , mtl
       , pretty-simple
       , rot13
-      , servant
-      , servant-client
-      , servant-server
       , req
       , text
       , time

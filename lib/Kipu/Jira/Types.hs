@@ -58,8 +58,8 @@ instance ToJSON UpdateProjectCategory where
 data ProjectDetails = ProjectDetails
   { projectDetails_avatarUrls      :: !(Maybe AvatarUrlsBean),
     projectDetails_id              :: !Text,
-    projectDetails_key             :: !Text,
-    projectDetails_name            :: !Text,
+    projectDetails_key             :: !(Maybe Text),
+    projectDetails_name            :: !(Maybe Text),
     projectDetails_projectCategory :: !(Maybe UpdateProjectCategory),
     projectDetails_projectTypeKey  :: !(Maybe Text),
     projectDetails_self            :: !(Maybe Text),

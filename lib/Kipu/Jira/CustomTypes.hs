@@ -13,6 +13,7 @@
 -- types that should work in most situation.
 -- User of the library may choose to define alternatives
 -- to the types defined here.
+
 module Kipu.Jira.CustomTypes where
 
 import           Data.Aeson
@@ -45,7 +46,7 @@ instance ToJSON IssueObject where toJSON = genericToJSON options
 
 data IssueBean = IssueBean
   { issueBean_id              :: Text
-  , issueBean_key             :: Text
+  , issueBean_key             :: Maybe Text
   , issueBean_changelog       :: Maybe PageOfChangelogs
   , issueBean_expand          :: Maybe Text
   , issueBean_fields          :: Maybe IssueObject

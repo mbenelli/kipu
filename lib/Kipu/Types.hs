@@ -128,7 +128,7 @@ toIssue x = do
   return
     CoreIssue
       { coreIssue_id = issueBean_id x,
-        coreIssue_key = issueBean_key x,
+        coreIssue_key = fromMaybe "" $ issueBean_key x,
         coreIssue_issuetype = IssueType typename,
         coreIssue_summary = _summary,
         coreIssue_project = _projectName,
