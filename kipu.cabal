@@ -1,16 +1,14 @@
 cabal-version:      3.0
 name:               kipu
 version:            0.1.0.0
--- synopsis:
--- description:
+synopsis:           Library for calling commonly used APIs
 license:            ISC
 license-file:       LICENSE
 author:             Marco Benelli
 maintainer:         mbenelli@fastmail.com
--- copyright:
+copyright:          (c) Marco Benelli 2024
 build-type:         Simple
 extra-doc-files:    CHANGELOG.md
--- extra-source-files:
 
 common warnings
     ghc-options: -Wall
@@ -32,8 +30,6 @@ library
       , Kipu.Time
       , Kipu.Transform
       , Kipu.Types
-    -- other-modules:
-    -- other-extensions:
     build-depends:
         base
       , aeson
@@ -63,9 +59,9 @@ test-suite kipu-test
     other-modules:
         ConfigTest
       , IssueBeanTest
+      , TestUtils
       , TimeTest
       , TransformTest
-    -- other-extensions:
     type:             exitcode-stdio-1.0
     hs-source-dirs:   test
     main-is:          Main.hs

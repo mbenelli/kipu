@@ -1,29 +1,26 @@
-{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
 
--- |
--- Module: Kipu.Time
--- Description: Time Utilities
--- Copyright: (c) Marco Benelli 2024
--- License: ISC
--- Maintainer: mbenelli@fastmail.com
+{-|
+Module: Kipu.Time
+Description: Time utilities
+Copyright: (c) Marco Benelli 2024
+License: ISC
+Maintainer: mbenelli@fastmail.com
+-}
 module Kipu.Time where
 
-import BasicPrelude hiding (union)
-import qualified Data.Map as M
-import Data.Text (unpack)
-import Data.Time
-  ( DayOfWeek (Saturday, Sunday),
-    NominalDiffTime,
-    UTCTime,
-    dayOfWeek,
-    diffUTCTime,
-    utctDay,
-    zonedTimeToUTC,
-  )
-import Data.Time.Calendar (DayOfWeek (Monday), Year)
-import Data.Time.Calendar.WeekDate (FirstWeekType (..), WeekOfYear, toWeekCalendar)
-import Data.Time.Format (defaultTimeLocale, parseTimeM)
+import           BasicPrelude                hiding (union)
+import qualified Data.Map                    as M
+import           Data.Text                   (unpack)
+import           Data.Time                   (DayOfWeek (Saturday, Sunday),
+                                              NominalDiffTime, UTCTime,
+                                              dayOfWeek, diffUTCTime, utctDay,
+                                              zonedTimeToUTC)
+import           Data.Time.Calendar          (DayOfWeek (Monday), Year)
+import           Data.Time.Calendar.WeekDate (FirstWeekType (..), WeekOfYear,
+                                              toWeekCalendar)
+import           Data.Time.Format            (defaultTimeLocale, parseTimeM)
 
 -- | Parse ISO 8601 time
 --
@@ -78,7 +75,7 @@ intersection x y
 
 intersection' :: [TimeInterval] -> [TimeInterval] -> [TimeInterval]
 intersection' (x : xs) ys = mapMaybe (intersection x) ys ++ intersection' xs ys
-intersection' [] _ = []
+intersection' [] _        = []
 
 union :: TimeInterval -> TimeInterval -> [TimeInterval]
 union x y
@@ -137,6 +134,6 @@ partitionByIntervals is t =
     ( \m x ->
         case chooseInterval is (t x) of
           Nothing -> m
-          Just i -> M.insertWith (++) i [x] m
+          Just i  -> M.insertWith (++) i [x] m
     )
     M.empty

@@ -1,6 +1,14 @@
 {-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StrictData        #-}
 
+{-|
+Module: Kipu.Jira.ApiTypes
+Description: Types for Jira API
+Copyright: (c) Marco Benelli 2025
+License: ISC
+Maintainer: mbenelli@fastmail.com
+-}
 module Kipu.Jira.ApiTypes where
 
 import           BasicPrelude

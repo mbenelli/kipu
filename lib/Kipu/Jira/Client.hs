@@ -1,6 +1,13 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 
+{-|
+Module: Kipu.Jira.Client
+Description: Client for Jira API
+Copyright: (c) Marco Benelli 2025
+License: ISC
+Maintainer: mbenelli@fastmail.com
+-}
 module Kipu.Jira.Client where
 
 import           BasicPrelude
@@ -9,7 +16,7 @@ import           Data.Aeson            (FromJSON, ToJSON)
 import           Kipu.Config
 import           Kipu.Jira.ApiTypes
 import           Kipu.Jira.CustomTypes (IssueBean)
-import           Kipu.Jira.Types       as JT
+import qualified Kipu.Jira.Types       as JT
 import           Network.HTTP.Req
 
 type ClientM = ReaderT Config IO
@@ -63,6 +70,8 @@ issue i = get ["rest", "api", "2", "issue", tshow i]
 changelog :: Int -> ClientM JT.PageBeanChangelog
 changelog i = get ["rest", "api", "2", "issue", tshow i]
 
+-- TODO
+--
 -- workspace :: ClientM Text
 -- workspace :: get ["rest", "servicedeskapi", "assets", "workspace"]
 

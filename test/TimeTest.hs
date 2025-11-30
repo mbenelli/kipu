@@ -1,19 +1,20 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE NoImplicitPrelude   #-}
+{-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 
--- |
--- Module: TimeTest
--- Description: Test transformations
--- Copyright: (c) Marco Benelli 2024
--- License: ISC
--- Maintainer: mbenelli@fastmail.com
+{-|
+Module: TimeTest
+Description: Test time utilities
+Copyright: (c) Marco Benelli 2024
+License: ISC
+Maintainer: mbenelli@fastmail.com
+-}
 module TimeTest where
 
-import BasicPrelude
-import Data.Time (UTCTime)
-import Kipu.Time
-import Test.HUnit
+import           BasicPrelude
+import           Data.Time    (UTCTime)
+import           Kipu.Time
+import           Test.HUnit
 
 sampleTimestamps :: [UTCTime]
 sampleTimestamps =

@@ -1,21 +1,22 @@
-{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
 
--- |
--- Module: Kipu.Transformer
--- Description: Data transformations
--- Copyright: (c) Marco Benelli 2024
--- License: ISC
--- Maintainer: mbenelli@fastmail.com
+{-|
+Module: Kipu.Transform
+Description: Data transformations
+Copyright: (c) Marco Benelli 2024
+License: ISC
+Maintainer: mbenelli@fastmail.com
+-}
 module Kipu.Transform where
 
-import Kipu.Time
-import Kipu.Types
-import BasicPrelude
+import           BasicPrelude
 import qualified Data.HashMap.Strict as H
-import qualified Data.Map as M
-import qualified Data.Set as S
-import Data.Time (NominalDiffTime, UTCTime, getCurrentTime)
+import qualified Data.Map            as M
+import qualified Data.Set            as S
+import           Data.Time           (NominalDiffTime, UTCTime, getCurrentTime)
+import           Kipu.Time
+import           Kipu.Types
 
 groupByKey :: (Eq k, Hashable k) => (v -> k) -> [v] -> H.HashMap k [v]
 groupByKey f = foldr (\x -> H.insertWith (++) (f x) [x]) H.empty
@@ -34,10 +35,10 @@ history t0 f ctor (c : cs) =
   (t0, ctor $ change_fromString c)
     : [(change_timestamp x, ctor $ change_toString x) | x <- c : cs, f x]
 
--- Get all intervals, the last one is from the timestamp the issue went
--- to its current state to now. Since it gets the current time
--- it returns an IO
---
+{-| Get all intervals, the last one is from the timestamp the issue went
+to its current state to now. Since it gets the current time
+it returns an IO
+-}
 intervals :: [(UTCTime, a)] -> IO [(TimeInterval, a)]
 intervals ((t0, a0) : (t1, a1) : xs) = do
   ys <- intervals ((t1, a1) : xs)
@@ -47,9 +48,9 @@ intervals [(ti, ai)] = do
   return [(TimeInterval ti t, ai)]
 intervals [] = return []
 
--- Get all intervals except the last one, that it the current state.
+{-| Get all intervals except the last one, that it the current state.
 -- Useful for closed issues
---
+-}
 intervals' :: [(UTCTime, a)] -> [(TimeInterval, a)]
 intervals' ((t0, a0) : (t1, a1) : xs) =
   (TimeInterval t0 t1, a0) : intervals' ((t1, a1) : xs)
@@ -68,8 +69,9 @@ states i = do
       Status
       cs
 
--- | Collect of the intervals of the given status, apply the given function
--- to each of them, and sum the results.
+{-| Collect of the intervals of the given status, apply the given function
+to each of them, and sum the results.
+-}
 cumulativeStatusTime' :: (Issue a, Num b) => (TimeInterval -> b) -> a -> Status -> Maybe b
 cumulativeStatusTime' f i s =
   states i

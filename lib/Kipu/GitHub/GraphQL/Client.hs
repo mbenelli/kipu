@@ -3,12 +3,13 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 
--- |
--- Module: Kipu.GitHub.Client
--- Description: Client for GitHub
--- Copyright: (c) Marco Benelli 2025
--- License: ISC
--- Maintainer: mbenelli@fastmail.com
+{-|
+Module: Kipu.GitHub.GraphQL.Client
+Description: Client for GitHub GraphQL API.
+Copyright: (c) Marco Benelli 2025
+License: ISC
+Maintainer: mbenelli@fastmail.com
+-}
 module Kipu.GitHub.GraphQL.Client where
 
 import           BasicPrelude

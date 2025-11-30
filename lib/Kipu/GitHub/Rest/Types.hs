@@ -1,13 +1,14 @@
 {-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StrictData        #-}
 
--- |
--- Module: Kipu.GitHub.Rest.Types
--- Description: GitHub types for REST client
--- Copyright: (c) Marco Benelli 2025
--- License: ISC
--- Maintainer: mbenelli@fastmail.com
---
+{-|
+Module: Kipu.GitHub.Rest.Types
+Description: Data Types for GitHub REST API
+Copyright: (c) Marco Benelli 2025
+License: ISC
+Maintainer: mbenelli@fastmail.com
+-}
 module Kipu.GitHub.Rest.Types where
 
 import           BasicPrelude

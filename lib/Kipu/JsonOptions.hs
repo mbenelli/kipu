@@ -1,15 +1,20 @@
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE OverloadedStrings #-}
 
+{-|
+Module: Kipu.JsonOptions
+Description: Options for serializing/deserializing Json
+Copyright: (c) Marco Benelli 2025
+License: ISC
+Maintainer: mbenelli@fastmail.com
+-}
 module Kipu.JsonOptions where
 
 import           BasicPrelude
 import           Data.Aeson   (Options, defaultOptions, fieldLabelModifier,
                                omitNothingFields)
-import           Data.Text    as T
+import qualified Data.Text    as T
 
 fieldModifier :: String -> String
--- fieldModifier = unpack . last . splitOn "_" . pack
 fieldModifier = T.unpack . T.drop 1 . T.dropWhile (/='_') . T.pack
 
 options :: Options
