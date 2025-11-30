@@ -1,8 +1,8 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE LambdaCase        #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 -- |
 -- Module: Kipu.Jira.Types
@@ -12,12 +12,12 @@
 -- Maintainer: mbenelli@fastmail.com
 module Kipu.Jira.Types where
 
-import BasicPrelude
-import Data.Aeson
-import Data.Aeson.Types (Parser)
-import Data.HashMap.Strict as M
-import Data.Text (pack, splitOn, unpack)
-import GHC.Generics (Generic)
+import           BasicPrelude
+import           Data.Aeson
+import           Data.Aeson.Types    (Parser)
+import           Data.HashMap.Strict as M
+import           Data.Text           (pack, splitOn, unpack)
+import           GHC.Generics        (Generic)
 
 fieldModifier :: String -> String
 fieldModifier = unpack . last . splitOn "_" . pack
@@ -26,12 +26,12 @@ options :: Options
 options = defaultOptions {fieldLabelModifier = fieldModifier}
 
 data JsonTypeBean = JsonTypeBean
-  { jsonTypeBean_type :: !Text,
+  { jsonTypeBean_type          :: !Text,
     jsonTypeBean_configuration :: !(Maybe Object),
-    jsonTypeBean_custom :: !(Maybe Text),
-    jsonTypeBean_customId :: !(Maybe Int),
-    jsonTypeBean_items :: !(Maybe Text),
-    jsonTypeBean_system :: !(Maybe Text)
+    jsonTypeBean_custom        :: !(Maybe Text),
+    jsonTypeBean_customId      :: !(Maybe Int),
+    jsonTypeBean_items         :: !(Maybe Text),
+    jsonTypeBean_system        :: !(Maybe Text)
   }
   deriving (Show, Generic)
 
@@ -42,9 +42,9 @@ instance ToJSON JsonTypeBean where
   toJSON = genericToJSON options
 
 data UpdateProjectCategory = UpdateProjectCategory
-  { updateProjectCategory_id :: !Text,
-    updateProjectCategory_name :: !Text,
-    updateProjectCategory_self :: !Text,
+  { updateProjectCategory_id          :: !Text,
+    updateProjectCategory_name        :: !Text,
+    updateProjectCategory_self        :: !Text,
     updateProjectCategory_description :: !(Maybe Text)
   }
   deriving (Show, Generic)
@@ -56,14 +56,14 @@ instance ToJSON UpdateProjectCategory where
   toJSON = genericToJSON options
 
 data ProjectDetails = ProjectDetails
-  { projectDetails_avatarUrls :: !(Maybe AvatarUrlsBean),
-    projectDetails_id :: !Text,
-    projectDetails_key :: !Text,
-    projectDetails_name :: !Text,
+  { projectDetails_avatarUrls      :: !(Maybe AvatarUrlsBean),
+    projectDetails_id              :: !Text,
+    projectDetails_key             :: !Text,
+    projectDetails_name            :: !Text,
     projectDetails_projectCategory :: !(Maybe UpdateProjectCategory),
-    projectDetails_projectTypeKey :: !(Maybe Text),
-    projectDetails_self :: !(Maybe Text),
-    projectDetails_simplified :: !(Maybe Bool)
+    projectDetails_projectTypeKey  :: !(Maybe Text),
+    projectDetails_self            :: !(Maybe Text),
+    projectDetails_simplified      :: !(Maybe Bool)
   }
   deriving (Show, Generic)
 
@@ -75,7 +75,7 @@ instance ToJSON ProjectDetails where
 
 data Scope = Scope
   { scope_project :: !ProjectDetails,
-    scope_type :: !Text
+    scope_type    :: !Text
   }
   deriving (Show, Generic)
 
@@ -86,8 +86,8 @@ instance ToJSON Scope where
   toJSON = genericToJSON options
 
 data Field = Field
-  { fieldId' :: !Text,
-    fieldName :: !(Maybe Text),
+  { fieldId'   :: !Text,
+    fieldName  :: !(Maybe Text),
     fieldValue :: !(Maybe Text)
   }
   deriving (Show, Generic)
@@ -121,15 +121,15 @@ instance ToJSON Field where
 
 data FieldDetails = FieldDetails
   { fieldDetails_clausesNames :: !(Maybe [Text]),
-    fieldDetails_custom :: !(Maybe Bool),
-    fieldDetails_id :: !Text,
-    fieldDetails_key :: !Text,
-    fieldDetails_name :: !Text,
-    fieldDetails_navigable :: !Bool,
-    fieldDetails_orderable :: !Bool,
-    fieldDetails_searchable :: !Bool,
-    fieldDetails_schema :: !(Maybe JsonTypeBean),
-    fieldDetails_scope :: !(Maybe Scope)
+    fieldDetails_custom       :: !(Maybe Bool),
+    fieldDetails_id           :: !Text,
+    fieldDetails_key          :: !Text,
+    fieldDetails_name         :: !Text,
+    fieldDetails_navigable    :: !Bool,
+    fieldDetails_orderable    :: !Bool,
+    fieldDetails_searchable   :: !Bool,
+    fieldDetails_schema       :: !(Maybe JsonTypeBean),
+    fieldDetails_scope        :: !(Maybe Scope)
   }
   deriving (Show, Generic)
 
@@ -141,8 +141,8 @@ instance ToJSON FieldDetails where
 
 data IncludedFields = IncludedFields
   { includedFields_actuallyIncluded :: ![Text],
-    includedFields_excluded :: ![Text],
-    includedFields_includede :: ![Text]
+    includedFields_excluded         :: ![Text],
+    includedFields_includede        :: ![Text]
   }
   deriving (Show, Generic)
 
@@ -153,13 +153,13 @@ instance ToJSON IncludedFields where
   toJSON = genericToJSON options
 
 data ChangeDetails = ChangeDetails
-  { changeDetails_field :: !(Maybe Text),
-    changeDetails_fieldId :: !(Maybe Text),
-    changeDetails_fieldtype :: !(Maybe Text),
-    changeDetails_from :: !(Maybe Text),
+  { changeDetails_field      :: !(Maybe Text),
+    changeDetails_fieldId    :: !(Maybe Text),
+    changeDetails_fieldtype  :: !(Maybe Text),
+    changeDetails_from       :: !(Maybe Text),
     changeDetails_fromString :: !(Maybe Text),
-    changeDetails_to :: !(Maybe Text),
-    changeDetails_toString :: !(Maybe Text)
+    changeDetails_to         :: !(Maybe Text),
+    changeDetails_toString   :: !(Maybe Text)
   }
   deriving (Show, Generic)
 
@@ -170,12 +170,12 @@ instance ToJSON ChangeDetails where
   toJSON = genericToJSON options
 
 data HistoryMetadataPartecipant = HistoryMetadataPartecipant
-  { historyMetadataPartecipant_avatarUrl :: !(Maybe Text),
-    historyMetadataPartecipant_displayName :: !(Maybe Text),
+  { historyMetadataPartecipant_avatarUrl      :: !(Maybe Text),
+    historyMetadataPartecipant_displayName    :: !(Maybe Text),
     historyMetadataPartecipant_displayNameKey :: !(Maybe Text),
-    historyMetadataPartecipant_id :: !(Maybe Text),
-    historyMetadataPartecipant_type :: !(Maybe Text),
-    historyMetadataPartecipant_url :: !(Maybe Text)
+    historyMetadataPartecipant_id             :: !(Maybe Text),
+    historyMetadataPartecipant_type           :: !(Maybe Text),
+    historyMetadataPartecipant_url            :: !(Maybe Text)
   }
   deriving (Show, Generic)
 
@@ -186,15 +186,15 @@ instance ToJSON HistoryMetadataPartecipant where
   toJSON = genericToJSON options
 
 data HistoryMetadata = HistoryMetadata
-  { historyMetada_activityDescription :: !(Maybe Text),
+  { historyMetada_activityDescription    :: !(Maybe Text),
     historyMetada_activityDescriptionKey :: !(Maybe Text),
-    historyMetada_actor :: !(Maybe HistoryMetadataPartecipant),
-    historyMetada_cause :: !(Maybe HistoryMetadataPartecipant),
-    historyMetada_description :: !(Maybe Text),
-    historyMetada_descriptionKey :: !(Maybe Text),
-    historyMetada_emailDescription :: !(Maybe Text),
-    historyMetada_emailDescriptionKey :: !(Maybe Text),
-    historyMetada_generator :: !(Maybe HistoryMetadataPartecipant)
+    historyMetada_actor                  :: !(Maybe HistoryMetadataPartecipant),
+    historyMetada_cause                  :: !(Maybe HistoryMetadataPartecipant),
+    historyMetada_description            :: !(Maybe Text),
+    historyMetada_descriptionKey         :: !(Maybe Text),
+    historyMetada_emailDescription       :: !(Maybe Text),
+    historyMetada_emailDescriptionKey    :: !(Maybe Text),
+    historyMetada_generator              :: !(Maybe HistoryMetadataPartecipant)
   }
   deriving (Show, Generic)
 
@@ -219,16 +219,16 @@ instance ToJSON AvatarUrlsBean where
   toJSON = genericToJSON options
 
 data UserDetails = UserDetail
-  { userDetails_accountId :: !(Maybe Text),
-    userDetails_accountType :: !(Maybe Text),
-    userDetails_active :: !(Maybe Bool),
-    userDetails_avatarUrls :: !(Maybe AvatarUrlsBean),
-    userDetails_displayName :: !(Maybe Text),
+  { userDetails_accountId    :: !(Maybe Text),
+    userDetails_accountType  :: !(Maybe Text),
+    userDetails_active       :: !(Maybe Bool),
+    userDetails_avatarUrls   :: !(Maybe AvatarUrlsBean),
+    userDetails_displayName  :: !(Maybe Text),
     userDetails_emailAddress :: !(Maybe Text),
-    userDetails_key :: !(Maybe Text),
-    userDetails_name :: !(Maybe Text),
-    userDetails_self :: !(Maybe Text),
-    userDetails_timeZone :: !(Maybe Text)
+    userDetails_key          :: !(Maybe Text),
+    userDetails_name         :: !(Maybe Text),
+    userDetails_self         :: !(Maybe Text),
+    userDetails_timeZone     :: !(Maybe Text)
   }
   deriving (Show, Generic)
 
@@ -239,11 +239,11 @@ instance ToJSON UserDetails where
   toJSON = genericToJSON options
 
 data Changelog = Changelog
-  { changelog_author :: !(Maybe UserDetails),
-    changelog_created :: !Text,
+  { changelog_author          :: !(Maybe UserDetails),
+    changelog_created         :: !Text,
     changelog_historyMetadata :: !(Maybe HistoryMetadata),
-    changelog_id :: !(Maybe Text),
-    changelog_items :: !(Maybe [ChangeDetails])
+    changelog_id              :: !(Maybe Text),
+    changelog_items           :: !(Maybe [ChangeDetails])
   }
   deriving (Show, Generic)
 
@@ -254,13 +254,13 @@ instance ToJSON Changelog where
   toJSON = genericToJSON options
 
 data PageBeanChangelog = PageBeanChangelog
-  { pageBeanChangelog_isLast :: !(Maybe Bool), -- wether is last page
+  { pageBeanChangelog_isLast     :: !(Maybe Bool), -- wether is last page
     pageBeanChangelog_maxResults :: !(Maybe Int),
-    pageBeanChangelog_nextPage :: !(Maybe Text), -- uri of next page
-    pageBeanChangelog_self :: !(Maybe Text),
-    pageBeanChangelog_startAt :: !(Maybe Int),
-    pageBeanChangelog_total :: !(Maybe Int),
-    pageBeanChangelog_values :: !(Maybe [Changelog])
+    pageBeanChangelog_nextPage   :: !(Maybe Text), -- uri of next page
+    pageBeanChangelog_self       :: !(Maybe Text),
+    pageBeanChangelog_startAt    :: !(Maybe Int),
+    pageBeanChangelog_total      :: !(Maybe Int),
+    pageBeanChangelog_values     :: !(Maybe [Changelog])
   }
   deriving (Show, Generic)
 
@@ -271,10 +271,10 @@ instance ToJSON PageBeanChangelog where
   toJSON = genericToJSON options
 
 data PageOfChangelogs = PageOfChangelogs
-  { pageOfChangelogs_histories :: !(Maybe [Changelog]),
+  { pageOfChangelogs_histories  :: !(Maybe [Changelog]),
     pageOfChangelogs_maxResults :: !(Maybe Int),
-    pageOfChangelogs_startAt :: !(Maybe Int),
-    pageOfChangelogs_total :: !(Maybe Int)
+    pageOfChangelogs_startAt    :: !(Maybe Int),
+    pageOfChangelogs_total      :: !(Maybe Int)
   }
   deriving (Show, Generic)
 
@@ -285,14 +285,14 @@ instance ToJSON PageOfChangelogs where
   toJSON = genericToJSON options
 
 data IssueEvent = IssueEvent
-  { issueEvent_id :: !Int,
+  { issueEvent_id  :: !Int,
     issueName_name :: !Text
   }
 
 data Priority = Priority
-  { priority_id :: !Text,
-    priority_name :: !Text,
-    priority_self :: !Text,
+  { priority_id      :: !Text,
+    priority_name    :: !Text,
+    priority_self    :: !Text,
     priority_iconUrl :: !Text
   }
   deriving (Show, Generic)
@@ -304,7 +304,7 @@ instance ToJSON Priority where
   toJSON = genericToJSON options
 
 data Component = Component
-  { component_id :: !Text,
+  { component_id   :: !Text,
     component_name :: !Text,
     component_self :: !Text
   }
@@ -317,10 +317,10 @@ instance ToJSON Component where
   toJSON = genericToJSON options
 
 data Resolution = Resolution
-  { resolution_id :: !Text,
-    resolution_name :: !Text,
+  { resolution_id          :: !Text,
+    resolution_name        :: !Text,
     resolution_description :: !Text,
-    resolution_self :: !Text
+    resolution_self        :: !Text
   }
   deriving (Show, Generic)
 
@@ -331,8 +331,8 @@ instance ToJSON Resolution where
   toJSON = genericToJSON options
 
 data StatusCategory = StatusCategory
-  { statusCategory_id :: !Int,
-    statusCategory_key :: !Text,
+  { statusCategory_id   :: !Int,
+    statusCategory_key  :: !Text,
     statusCategory_name :: !Text,
     statusCategory_self :: !Text
   }
@@ -345,11 +345,11 @@ instance ToJSON StatusCategory where
   toJSON = genericToJSON options
 
 data Status = Status
-  { status_id :: !Text,
-    status_name :: !Text,
-    status_description :: !Text,
-    status_self :: !Text,
-    status_iconUrl :: !Text,
+  { status_id             :: !Text,
+    status_name           :: !Text,
+    status_description    :: !Text,
+    status_self           :: !Text,
+    status_iconUrl        :: !Text,
     status_statusCategory :: !StatusCategory
   }
   deriving (Show, Generic)
@@ -361,13 +361,13 @@ instance ToJSON Status where
   toJSON = genericToJSON options
 
 data Version = Version
-  { version_id :: !Text,
-    version_name :: !Text,
+  { version_id          :: !Text,
+    version_name        :: !Text,
     version_description :: !(Maybe Text),
     version_releaseDate :: !(Maybe Text),
-    version_released :: !(Maybe Bool),
-    version_archived :: !(Maybe Bool),
-    version_self :: !(Maybe Text)
+    version_released    :: !(Maybe Bool),
+    version_archived    :: !(Maybe Bool),
+    version_self        :: !(Maybe Text)
   }
   deriving (Show, Generic)
 
@@ -378,16 +378,16 @@ instance ToJSON Version where
   toJSON = genericToJSON options
 
 data IssueTypeDetails = IssueTypeDetails
-  { issueTypeDetails_avatarId :: !(Maybe Int),
-    issueTypeDetails_description :: !(Maybe Text),
-    issueTypeDetails_entityId :: !(Maybe Text),
+  { issueTypeDetails_avatarId       :: !(Maybe Int),
+    issueTypeDetails_description    :: !(Maybe Text),
+    issueTypeDetails_entityId       :: !(Maybe Text),
     issueTypeDetails_hierarchyLevel :: !(Maybe Int),
-    issueTypeDetails_iconUrl :: !(Maybe Text),
-    issueTypeDetails_id :: !(Maybe Text),
-    issueTypeDetails_name :: !(Maybe Text),
-    issueTypeDetails_scope :: !(Maybe Scope),
-    issueTypeDetails_self :: !(Maybe Text),
-    issueTypeDetails_subtask :: !(Maybe Bool)
+    issueTypeDetails_iconUrl        :: !(Maybe Text),
+    issueTypeDetails_id             :: !(Maybe Text),
+    issueTypeDetails_name           :: !(Maybe Text),
+    issueTypeDetails_scope          :: !(Maybe Scope),
+    issueTypeDetails_self           :: !(Maybe Text),
+    issueTypeDetails_subtask        :: !(Maybe Bool)
   }
   deriving (Show, Generic)
 
@@ -408,8 +408,8 @@ instance ToJSON IssueType where
   toEncoding = genericToEncoding options
 
 data Project = Project
-  { project_id :: !Text,
-    project_key :: !Text,
+  { project_id   :: !Text,
+    project_key  :: !Text,
     project_name :: !Text
   }
   deriving (Show, Generic)
@@ -428,32 +428,32 @@ data Content = Content
   }
 
 data Body = Body
-  { body_type :: !Text,
+  { body_type    :: !Text,
     body_content :: ![Content]
   }
 
 data Description = Description
-  { description_type :: !String,
+  { description_type    :: !String,
     description_version :: !Int,
     description_content :: ![Body]
   }
 
 data Comment = Comment
-  { comment_author :: !UserDetails,
-    comment_body :: !Description,
-    comment_created :: !Text,
-    comment_id :: !Text,
-    comment_self :: !Text,
-    comment_updated :: !(Maybe Text),
+  { comment_author       :: !UserDetails,
+    comment_body         :: !Description,
+    comment_created      :: !Text,
+    comment_id           :: !Text,
+    comment_self         :: !Text,
+    comment_updated      :: !(Maybe Text),
     comment_updateAuthor :: !(Maybe UserDetails)
   }
 
 -- Issue Links
 
 data LinkType = LinkType
-  { linkType_id :: !Text,
-    linkType_name :: !Text,
-    linkType_inward :: !Text,
+  { linkType_id      :: !Text,
+    linkType_name    :: !Text,
+    linkType_inward  :: !Text,
     linkType_outward :: !Text
   }
   deriving (Show, Generic)
@@ -465,8 +465,8 @@ instance ToJSON LinkType where
   toJSON = genericToJSON options
 
 data LinkedIssue = LinkedIssue
-  { linkedIssue_id :: !Text,
-    linkedIssue_key :: !Text,
+  { linkedIssue_id     :: !Text,
+    linkedIssue_key    :: !Text,
     linkedIssue_Status :: !(Maybe Text)
   }
   deriving (Show, Generic)
@@ -478,10 +478,10 @@ instance ToJSON LinkedIssue where
   toJSON = genericToJSON options
 
 data IssueLink = IssueLink
-  { issueLink_id :: !Text,
+  { issueLink_id           :: !Text,
     issueLink_outwardIssue :: !(Maybe LinkedIssue),
-    issueLink_inwardIssue :: !(Maybe LinkedIssue),
-    issueLink_type :: !LinkType
+    issueLink_inwardIssue  :: !(Maybe LinkedIssue),
+    issueLink_type         :: !LinkType
   }
   deriving (Show, Generic)
 
@@ -492,9 +492,9 @@ instance ToJSON IssueLink where
   toJSON = genericToJSON options
 
 data SubTask = SubTask
-  { subTask_id :: !Text,
+  { subTask_id           :: !Text,
     subTask_outwardIssue :: !LinkedIssue,
-    subTask_type :: !LinkType
+    subTask_type         :: !LinkType
   }
   deriving (Show, Generic)
 
