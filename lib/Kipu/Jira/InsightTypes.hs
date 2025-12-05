@@ -2,13 +2,13 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StrictData        #-}
 
-{-|
-Module: Kipu.Jira.InsightTypes
-Description: Additional types for Jira's Insight plugin
-Copyright: (c) Marco Benelli 2024
-License: ISC
-Maintainer: mbenelli@fastmail.com
--}
+-- |
+-- Module: Kipu.Jira.InsightTypes
+-- Description: Additional types for Jira's Insight plugin
+-- Copyright: (c) Marco Benelli 2024
+-- License: ISC
+-- Maintainer: mbenelli@fastmail.com
+--
 module Kipu.Jira.InsightTypes where
 
 import           BasicPrelude

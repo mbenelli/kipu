@@ -1,12 +1,12 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 
-{-|
-Module: Kipu.JsonOptions
-Description: Options for serializing/deserializing Json
-Copyright: (c) Marco Benelli 2025
-License: ISC
-Maintainer: mbenelli@fastmail.com
--}
+-- |
+-- Module: Kipu.JsonOptions
+-- Description: Options for serializing/deserializing Json
+-- Copyright: (c) Marco Benelli 2025
+-- License: ISC
+-- Maintainer: mbenelli@fastmail.com
+--
 module Kipu.JsonOptions where
 
 import           BasicPrelude

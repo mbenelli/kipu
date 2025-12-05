@@ -1,13 +1,13 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-{-|
-Module: Kipu.GitHub.Rest.Client
-Description: Client for GitHub REST API
-Copyright: (c) Marco Benelli 2025
-License: ISC
-Maintainer: mbenelli@fastmail.com
--}
+-- |
+-- Module: Kipu.GitHub.Rest.Client
+-- Description: Client for GitHub REST API
+-- Copyright: (c) Marco Benelli 2025
+-- License: ISC
+-- Maintainer: mbenelli@fastmail.com
+--
 module Kipu.GitHub.Rest.Client where
 
 import           BasicPrelude

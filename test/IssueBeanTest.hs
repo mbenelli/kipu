@@ -1,13 +1,13 @@
 {-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
-{-|
-Module: IssueBeanTest
-Description: Reading and parsing sample 'IssueBean's
-Copyright: (c) Marco Benelli 2024
-License: ISC
-Maintainer: mbenelli@fastmail.com
--}
+-- |
+-- Module: IssueBeanTest
+-- Description: Reading and parsing sample 'IssueBean's
+-- Copyright: (c) Marco Benelli 2024
+-- License: ISC
+-- Maintainer: mbenelli@fastmail.com
+--
 module IssueBeanTest where
 
 import qualified Kipu.Jira.CustomTypes as CT

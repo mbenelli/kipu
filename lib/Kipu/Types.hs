@@ -4,15 +4,15 @@
 {-# LANGUAGE OverloadedStrings          #-}
 {-# LANGUAGE TypeSynonymInstances       #-}
 
-{-|
-Module: Kipu.Types
-Description: Types definitons
-Copyright: (c) Marco Benelli 2024
-License: ISC
-Maintainer: mbenelli@fastmail.com
+-- |
+-- Module: Kipu.Types
+-- Description: Types definitons
+-- Copyright: (c) Marco Benelli 2024
+-- License: ISC
+-- Maintainer: mbenelli@fastmail.com
 
-Type definitions, a little decoupled form API's.
--}
+-- Type definitions, a little decoupled form API's.
+--
 module Kipu.Types where
 
 import           BasicPrelude          hiding (id, isPrefixOf, lookup)

@@ -2,13 +2,13 @@
 {-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
-{-|
-Module: TimeTest
-Description: Test time utilities
-Copyright: (c) Marco Benelli 2024
-License: ISC
-Maintainer: mbenelli@fastmail.com
--}
+-- |
+-- Module: TimeTest
+-- Description: Test time utilities
+-- Copyright: (c) Marco Benelli 2024
+-- License: ISC
+-- Maintainer: mbenelli@fastmail.com
+--
 module TimeTest where
 
 import           BasicPrelude

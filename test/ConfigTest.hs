@@ -1,12 +1,12 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-{-|
-Module: ConfigTest
-Description: Reading and parsing configuration
-Copyright: (c) Marco Benelli 2024
-License: ISC
-Maintainer: mbenelli@fastmail.com
--}
+-- |
+-- Module: ConfigTest
+-- Description: Reading and parsing configuration
+-- Copyright: (c) Marco Benelli 2024
+-- License: ISC
+-- Maintainer: mbenelli@fastmail.com
+--
 module ConfigTest where
 
 import           Kipu.Config

@@ -5,13 +5,13 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData        #-}
 
-{-|
-Module: Kipu.Jira.Types
-Description: Jira Types
-Copyright: (c) Marco Benelli 2024
-License: ISC
-Maintainer: mbenelli@fastmail.com
--}
+-- |
+-- Module: Kipu.Jira.Types
+-- Description: Jira Types
+-- Copyright: (c) Marco Benelli 2024
+-- License: ISC
+-- Maintainer: mbenelli@fastmail.com
+--
 module Kipu.Jira.Types where
 
 import           BasicPrelude

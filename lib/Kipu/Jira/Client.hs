@@ -1,13 +1,13 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-{-|
-Module: Kipu.Jira.Client
-Description: Client for Jira API
-Copyright: (c) Marco Benelli 2025
-License: ISC
-Maintainer: mbenelli@fastmail.com
--}
+-- |
+-- Module: Kipu.Jira.Client
+-- Description: Client for Jira API
+-- Copyright: (c) Marco Benelli 2025
+-- License: ISC
+-- Maintainer: mbenelli@fastmail.com
+--
 module Kipu.Jira.Client where
 
 import           BasicPrelude

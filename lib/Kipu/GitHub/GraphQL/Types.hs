@@ -2,13 +2,13 @@
 {-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
-{-|
-Module: Kipu.GitHub.GraphQL.Types
-Description: Data types for reading GraphQL responses
-Copyright: (c) Marco Benelli 2025
-License: ISC
-Maintainer: mbenelli@fastmail.com
--}
+-- |
+-- Module: Kipu.GitHub.GraphQL.Types
+-- Description: Data types for reading GraphQL responses
+-- Copyright: (c) Marco Benelli 2025
+-- License: ISC
+-- Maintainer: mbenelli@fastmail.com
+--
 module Kipu.GitHub.GraphQL.Types where
 
 import           BasicPrelude
