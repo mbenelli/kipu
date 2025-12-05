@@ -125,7 +125,7 @@ partitionByWeek t =
     M.empty
 
 chooseInterval :: [TimeInterval] -> UTCTime -> Maybe TimeInterval
-chooseInterval tis t = find (\i -> contains' i t) tis
+chooseInterval tis t = find (`contains'` t) tis
 
 -- | Partition a list by an interval set.
 partitionByIntervals :: [TimeInterval] -> (a -> UTCTime) -> [a] -> M.Map TimeInterval [a]
