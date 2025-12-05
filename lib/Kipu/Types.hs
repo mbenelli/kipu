@@ -17,19 +17,13 @@ module Kipu.Types where
 
 import           BasicPrelude          hiding (id, isPrefixOf, lookup)
 import           Codec.Rot13
+import qualified Data.Bifunctor        as B
 import           Data.HashMap.Strict   (filterWithKey)
 import           Data.Text             (isPrefixOf)
 import           Data.Time             (UTCTime)
 import           GHC.Generics
 import           Kipu.Jira.CustomTypes
-import qualified Kipu.Jira.Types       as JT (ChangeDetails (..),
-                                              Changelog (..), IssueLink (..),
-                                              IssueTypeDetails (..),
-                                              LinkType (..), LinkedIssue (..),
-                                              PageOfChangelogs (..),
-                                              Project (..), Resolution (..),
-                                              Status (..), UserDetails (..),
-                                              Version (..))
+import qualified Kipu.Jira.Types       as JT
 import           Kipu.Time             (parseTime)
 
 newtype Status = Status Text
@@ -232,9 +226,9 @@ toLinks =
             inward = LinkType $ JT.linkType_inward t
             outward = LinkType $ JT.linkType_outward t
          in case JT.issueLink_outwardIssue x of
-              Just o -> (Link outward (JT.linkedIssue_key o)) : r
+              Just o -> Link outward (JT.linkedIssue_key o) : r
               Nothing -> case JT.issueLink_inwardIssue x of
-                Just i  -> (Link inward (JT.linkedIssue_key i)) : r
+                Just i  -> Link inward (JT.linkedIssue_key i) : r
                 Nothing -> r
     )
     []
@@ -248,9 +242,9 @@ inOutLinks =
             inward = LinkType $ JT.linkType_inward t
             outward = LinkType $ JT.linkType_outward t
          in case JT.issueLink_outwardIssue x of
-              Just o -> (fst r, (Link outward (JT.linkedIssue_key o)) : (snd r))
+              Just o -> B.second (Link outward (JT.linkedIssue_key o) :) r
               Nothing -> case JT.issueLink_inwardIssue x of
-                Just i -> ((Link inward (JT.linkedIssue_key i)) : (fst r), (snd r))
+                Just i  -> B.first (Link inward (JT.linkedIssue_key i) :) r
                 Nothing -> r
     )
     ([], [])
