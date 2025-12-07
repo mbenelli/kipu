@@ -12,47 +12,60 @@
 module TimeTest where
 
 import           BasicPrelude
-import           Data.Time    (UTCTime)
+import           Data.Time          (UTCTime)
+import           Data.Time.Calendar (fromGregorian)
+import qualified Data.Time.Clock    as C
 import           Kipu.Time
 import           Test.HUnit
 
-sampleTimestamps :: [UTCTime]
-sampleTimestamps =
-  mapMaybe
-    parseTime
-    [ "2024-01-29T01:00:00.000+0000",
-      "2024-01-29T02:00:00.000+0000",
-      "2024-01-29T03:00:00.000+0000",
-      "2024-01-30T04:00:00.000+0000",
-      "2024-01-30T05:00:00.000+0000",
-      "2024-01-30T06:00:00.000+0000",
-      "2024-01-30T07:00:00.000+0000",
-      "2024-02-01T01:00:00.000+0000",
-      "2024-02-01T02:00:00.000+0000",
-      "2024-02-19T03:00:00.000+0000",
-      "2024-02-19T04:00:00.000+0000",
-      "2024-02-19T05:00:00.000+0000"
-    ]
+
+-- Sample Timestamps
+
+t0 :: UTCTime
+t0 = C.UTCTime (fromGregorian 2024 1 29) 3600
+
+t1 :: UTCTime
+t1 = C.UTCTime (fromGregorian 2024 1 29) 7200
+
+t2 :: UTCTime
+t2 = C.UTCTime (fromGregorian 2024 1 29) 10800
+
+t3 :: UTCTime
+t3 = C.UTCTime (fromGregorian 2024 1 30) 3600
+
+t4 :: UTCTime
+t4 = C.UTCTime (fromGregorian 2024 1 30) 7200
+
+t5 :: UTCTime
+t5 = C.UTCTime (fromGregorian 2024 1 30) 10800
+
+t6 :: UTCTime
+t6 = C.UTCTime (fromGregorian 2024 1 31) 3600
+
+t7 :: UTCTime
+t7 = C.UTCTime (fromGregorian 2024 1 31) 7200
+
+t8 :: UTCTime
+t8 = C.UTCTime (fromGregorian 2024 1 31) 10800
+
+--
 
 timeTest :: [Test]
 timeTest =
   [ TestLabel
       "TimeInterval creation"
       ( TestCase $ do
-          let a = sampleTimestamps !! 0
-          let b = sampleTimestamps !! 1
-          let dt0 = timeInterval a b
-          let dt1 = timeInterval b a
+          let dt0 = timeInterval t0 t1
+          let dt1 = timeInterval t1 t0
           assertEqual "" dt0 dt1
-          assertEqual "" (begin dt0) a
-          assertEqual "" (begin dt1) a
-          assertEqual "" (end dt0) b
-          assertEqual "" (end dt1) b
+          assertEqual "" (begin dt0) t0
+          assertEqual "" (begin dt1) t0
+          assertEqual "" (end dt0) t1
+          assertEqual "" (end dt1) t1
       ),
     TestLabel
       "Intersection"
       ( TestCase $ do
-          let t0 : t1 : t2 : t3 : _ = sampleTimestamps
           let i1 = timeInterval t0 t2
           let i2 = timeInterval t1 t3
           let int = timeInterval t1 t2
@@ -63,7 +76,6 @@ timeTest =
     TestLabel
       "Intersections"
       ( TestCase $ do
-          let t0 : t1 : t2 : _ : _ : t5 : t6 : t7 : t8 : _ = sampleTimestamps
           let i0 = timeInterval t0 t1
           let i1 = timeInterval t6 t8
           let i2 = timeInterval t0 t2
