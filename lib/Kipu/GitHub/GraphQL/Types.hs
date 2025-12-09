@@ -1,6 +1,8 @@
-{-# LANGUAGE DeriveAnyClass    #-}
-{-# LANGUAGE DeriveGeneric     #-}
-{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE DeriveAnyClass        #-}
+{-# LANGUAGE DeriveGeneric         #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE NoImplicitPrelude     #-}
+{-# LANGUAGE TypeFamilies          #-}
 
 -- |
 -- Module: Kipu.GitHub.GraphQL.Types
@@ -24,8 +26,15 @@ data PageInfo = PageInfo
   , hasPreviousPage :: Bool
   } deriving (Show, Generic, FromJSON, ToJSON)
 
-class Paged p where
-  pageInfo :: p -> PageInfo
+type family ResultValue t
+
+class FromJSON r => Paged r where
+  pageInfo :: r -> PageInfo
+  values :: r -> [ResultValue r]
+
+-------------------------------------------------
+-- Repository Components
+--
 
 data Repository = Repository
   { archivedAt     :: Maybe UTCTime
@@ -55,9 +64,6 @@ instance FromJSON Repositories where
 instance ToJSON Repositories where
   toJSON = genericToJSON options
 
-instance Paged Repositories where
-  pageInfo = repositories_pageInfo
-
 newtype Organization = Organization
   { repositories :: Repositories
   } deriving (Show, Generic, FromJSON, ToJSON)
@@ -76,11 +82,16 @@ instance FromJSON RepoResult where
 instance ToJSON RepoResult where
   toJSON = genericToJSON options
 
-getRepos :: RepoResult -> [Repository]
-getRepos = repositories_nodes . repositories . organization . repo_data
+-- Repositories instance
+--
+type instance ResultValue RepoResult = Repository
 
-getPageInfo:: RepoResult -> PageInfo
-getPageInfo = pageInfo . repositories . organization . repo_data
+instance Paged RepoResult where
+  pageInfo = repositories_pageInfo . repositories . organization . repo_data
+  values = repositories_nodes . repositories . organization . repo_data
+
+-------------------------------------------------
+-- Push Request Components
 
 -- | Git Author
 --
@@ -206,3 +217,9 @@ instance FromJSON PrResult where
 
 instance ToJSON PrResult where
   toJSON = genericToJSON options
+
+type instance ResultValue PrResult = PullRequest
+
+instance Paged PrResult where
+  pageInfo = pullRequests_pageInfo . pullRequests . repository . pr_data
+  values = pullRequests_nodes . pullRequests . repository . pr_data
