@@ -4,6 +4,7 @@
 {-# LANGUAGE NoImplicitPrelude   #-}
 {-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TemplateHaskell     #-}
 
 -- |
 -- Module: Kipu.GitHub.GraphQL.Client
@@ -15,8 +16,10 @@
 module Kipu.GitHub.GraphQL.Client where
 
 import           BasicPrelude
+import           Control.Monad.Logger
 import           Control.Monad.Reader
 import           Data.Aeson
+import           Data.Text                 (pack)
 import           GHC.Generics              (Generic)
 import           Kipu.Config
 import           Kipu.GitHub.GraphQL.Types
@@ -144,7 +147,7 @@ prQuery owner repo f cursor = Query {
       Nothing -> "after: null"
       Just c  -> "after: \"" <> c <> "\""
 
-type ClientM a = ReaderT Config IO a
+type ClientM a = ReaderT Config (LoggingT IO) a
 
 call :: Paged r => Query r -> ClientM r
 call q = do
@@ -158,6 +161,7 @@ call q = do
           , header "User-Agent" "agent"
           ]
       request = req POST ep body jsonResponse prms
+  $logDebug $ pack $ show q
   responseBody <$> runReq defaultHttpConfig request
 
 paged:: Paged r => (Int -> Maybe Text -> Query r) -> ClientM [ResultValue r]
@@ -172,13 +176,19 @@ paged q = go 100 Nothing
           else
             pure rs
 
+level :: LogSource -> LogLevel -> Bool
+level _ l = case l of
+  LevelDebug -> False
+  _          -> True
+
 run :: Paged r => (Int -> Maybe Text -> Query r) -> IO [ResultValue r]
 run f = do
   file <- defaultConfigFile
   cfg <- readConfig file
   case cfg of
     Left e  -> fail $ show e
-    Right c -> runReaderT (paged f) c
+    Right c -> runStderrLoggingT
+      $ filterLogger level $ runReaderT (paged f) c
 
 repos :: Text -> IO [Repository]
 repos org = run $ orgRepos org
