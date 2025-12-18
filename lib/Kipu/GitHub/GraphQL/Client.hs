@@ -67,7 +67,7 @@ orgRepos org f cursor = Query {
 \         startCursor \
 \         hasNextPage \
 \         hasPreviousPage \
-\       }}}}}"
+\       }}}}"
   }
   where
     after = case cursor of
