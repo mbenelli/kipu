@@ -28,7 +28,7 @@ data PageInfo = PageInfo
 
 type family ResultValue t
 
-class FromJSON r => Paged r where
+class (FromJSON r, Show r) => Paged r where
   pageInfo :: r -> PageInfo
   values :: r -> [ResultValue r]
 
