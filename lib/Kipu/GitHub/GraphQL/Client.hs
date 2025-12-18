@@ -161,7 +161,7 @@ call q = do
           , header "User-Agent" "agent"
           ]
       request = req POST ep body jsonResponse prms
-  $logDebug $ pack $ show q
+  $logDebug $ pack $ show ep
   responseBody <$> runReq defaultHttpConfig request
 
 paged:: Paged r => (Int -> Maybe Text -> Query r) -> ClientM [ResultValue r]
