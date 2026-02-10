@@ -8,6 +8,9 @@
 ## MacOS
 .DS_Store
 
+## IDEs
+.idea
+
 ## Stack and Cabal
 stack.yaml
 .stack-work*/
