@@ -28,7 +28,7 @@ data IssueObject = IssueObject
   , issueObject_summary        :: Text
   , issueObject_status         :: Status
   , issueObject_created        :: Text
-  , issueObject_creator        :: UserDetails
+  , issueObject_creator        :: Maybe UserDetails
   , issueObject_priority       :: Maybe Priority
   , issueObject_description    :: Maybe Text
   , issueObject_assignee       :: Maybe UserDetails

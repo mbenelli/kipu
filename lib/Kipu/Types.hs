@@ -54,7 +54,7 @@ class Issue a where
   project :: a -> Text
   status :: a -> Status
   created :: a -> UTCTime
-  creator :: a -> User
+  creator :: a -> Maybe User
   description :: a -> Maybe Text
   assignee :: a -> Maybe User
   reporter :: a -> Maybe User
@@ -74,7 +74,7 @@ data CoreIssue = CoreIssue
     coreIssue_project        :: !Text,
     coreIssue_status         :: !Status,
     coreIssue_created        :: !UTCTime,
-    coreIssue_creator        :: !User,
+    coreIssue_creator        :: !(Maybe User),
     coreIssue_description    :: !(Maybe Text),
     coreIssue_assignee       :: !(Maybe User),
     coreIssue_reporter       :: !(Maybe User),
@@ -128,7 +128,10 @@ toIssue x = do
         coreIssue_project = _projectName,
         coreIssue_status = Status _statusName,
         coreIssue_created = _created,
-        coreIssue_creator = pseudonomizeUser _creator,
+        coreIssue_creator =
+          issueObject_creator obj
+            >>= Just
+            . pseudonomizeUser,
         coreIssue_description = issueObject_description obj,
         coreIssue_assignee =
           issueObject_assignee obj
