@@ -20,9 +20,12 @@ data ObjectEntry = ObjectEntry
   { objectEntry_id         :: Int
   , objectEntry_label      :: Text
   , objectEntry_name       :: Text
-  , objectEntry_attributes :: [Attribute]
+  , objectEntry_attributes :: Maybe [Attribute]
   , objectEntry_objectKey  :: Text
   , objectEntry_objectType :: ObjectType
+  , objectEntry_created    :: Text -- TODO
+  , objectEntry_updated    :: Text -- TODO
+  , objectEntry_timestamp  :: Int
   }
   deriving (Show, Generic)
 
@@ -56,4 +59,13 @@ data AttributeValue = AttributeValue
   deriving (Show, Generic)
 
 instance FromJSON AttributeValue where
+  parseJSON = genericParseJSON JT.options
+
+data ObjectTypeAttribute = ObjectTypeAttribute
+  { objectTypeAttribute_id   :: Int
+  , objectTypeAttribute_name :: Text
+  }
+  deriving (Show, Generic)
+
+instance FromJSON ObjectTypeAttribute where
   parseJSON = genericParseJSON JT.options

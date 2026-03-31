@@ -22,12 +22,12 @@ import           Kipu.JsonOptions       (options)
 -- Deprecated API
 --
 data SearchRequestV2 = SearchRequestV2
-  { searchRequestV2_expand        :: [Text]
-  , searchRequestV2_fields        :: [Text]
+  { searchRequestV2_expand        :: Maybe [Text]
+  , searchRequestV2_fields        :: Maybe [Text]
   , searchRequestV2_jql           :: Text
-  , searchRequestV2_maxResults    :: Int
+  , searchRequestV2_maxResults    :: Maybe Int
   , searchRequestV2_startAt       :: Int
-  , searchRequestV2_validateQuery :: Bool
+  , searchRequestV2_validateQuery :: Maybe Bool
   } deriving (Show, Generic)
 
 instance FromJSON SearchRequestV2 where
@@ -52,6 +52,10 @@ instance FromJSON SearchResponseV2 where
 
 instance ToJSON SearchResponseV2 where
   toJSON = genericToJSON options
+
+searchRequestV2 :: Text -> Int -> SearchRequestV2
+searchRequestV2 q start =
+  SearchRequestV2 Nothing Nothing q Nothing start Nothing
 
 --
 
@@ -114,16 +118,46 @@ data AssetSearchResponse' = AssetSearchResponse'
 instance FromJSON AssetSearchResponse' where
   parseJSON = genericParseJSON options
 
+data InsightSearchRequest = InsightSearchRequest
+  { insightSearchRequest_iql                   :: Text
+  , insightSearchRequest_page                  :: Maybe Int
+  , insightSearchRequest_orderAsc              :: Maybe Bool
+  , insightSearchRequest_resultPerPage         :: Maybe Int
+  , insightSearchRequest_includeAttributes     :: Maybe Bool
+  , insightSearchRequest_includeAttributesDeep :: Maybe Int
+  , insightSearchRequest_includeTypeAttributes :: Maybe Bool
+  , insightSearchRequest_includeExtendedInfo   :: Maybe Bool
+  }
+  deriving (Show, Generic)
+
+instance ToJSON InsightSearchRequest where
+  toJSON = genericToJSON options
+
+insightSearchRequest :: Text -> Int -> InsightSearchRequest
+insightSearchRequest query page =
+  InsightSearchRequest
+    query
+    (Just page)
+    Nothing
+    Nothing
+    Nothing
+    Nothing
+    Nothing
+    Nothing
+
+
 data InsightSearchResponse = InsightSearchResponse
   { insightSearchResponse_objectEntries        :: [JI.ObjectEntry]
-  , insightSearchResponse_objectTypeAttributes :: [Maybe Object]
+  , insightSearchResponse_objectTypeAttributes :: [JI.ObjectTypeAttribute]
   , insightSearchResponse_iql                  :: Maybe Text
   , insightSearchResponse_qlQuery              :: Maybe Text
   , insightSearchResponse_startIndex           :: Int
   , insightSearchResponse_toIndex              :: Int
-  , insightSearchResponse_totalFilterCount     :: Maybe Int
+  , insightSearchResponse_pageObjectSize       :: Int
+  , insightSearchResponse_pageNumber           :: Int
   }
   deriving (Show, Generic)
 
 instance FromJSON InsightSearchResponse where
   parseJSON = genericParseJSON options
+
