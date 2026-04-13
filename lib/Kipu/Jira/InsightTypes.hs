@@ -26,12 +26,15 @@ data ObjectEntry = ObjectEntry
   , objectEntry_created    :: Text -- TODO
   , objectEntry_updated    :: Text -- TODO
   , objectEntry_timestamp  :: Int
-  }
+ } 
   deriving (Show, Generic)
 
 instance FromJSON ObjectEntry where
   parseJSON = genericParseJSON JT.options
 
+instance ToJSON ObjectEntry where
+  toJSON = genericToJSON JT.options
+  
 data ObjectType = ObjectType
   { objectType_id   :: Int
   , objectType_name :: Text
@@ -40,6 +43,9 @@ data ObjectType = ObjectType
 
 instance FromJSON ObjectType where
   parseJSON = genericParseJSON JT.options
+
+instance ToJSON ObjectType where
+  toJSON = genericToJSON JT.options
 
 data Attribute = Attribute
   { attribute_id                    :: Int
@@ -52,6 +58,9 @@ data Attribute = Attribute
 instance FromJSON Attribute where
   parseJSON = genericParseJSON JT.options
 
+instance ToJSON Attribute where
+  toJSON = genericToJSON JT.options
+
 data AttributeValue = AttributeValue
   { attributeValue_displayValue :: Text
   , attributeValue_searchValue  :: Text
@@ -61,6 +70,9 @@ data AttributeValue = AttributeValue
 instance FromJSON AttributeValue where
   parseJSON = genericParseJSON JT.options
 
+instance ToJSON AttributeValue where
+  toJSON = genericToJSON JT.options
+
 data ObjectTypeAttribute = ObjectTypeAttribute
   { objectTypeAttribute_id   :: Int
   , objectTypeAttribute_name :: Text
@@ -69,3 +81,6 @@ data ObjectTypeAttribute = ObjectTypeAttribute
 
 instance FromJSON ObjectTypeAttribute where
   parseJSON = genericParseJSON JT.options
+
+instance ToJSON ObjectTypeAttribute where
+  toJSON = genericToJSON JT.options
